@@ -40,16 +40,16 @@
 
         {:des "f-mode for navigation"
          :rules [:f-mode
-                 [:##y          :!Cleft_arrow]      ; f -> y    Cmd+Left
-                 [:##u          :page_down]         ; f -> i    Page Down
-                 [:##i          :page_up]           ; f -> u    Page Up
-                 [:##o          :!Cright_arrow]     ; f -> o    Cmd+Right
-                 [:##h          :left_arrow]        ; f -> h    Left 
-                 [:##j          :down_arrow]        ; f -> j    Down
-                 [:##k          :up_arrow]          ; f -> k    Up
-                 [:##l          :right_arrow]       ; f -> l    Right
-                 [:##m          :!Oleft_arrow]      ; f -> m    Opt+Left
-                 [:##comma      :!Oright_arrow]     ; f -> ,    Opt+Right
+                 [:##y          :!Cdown_arrow]      ; f -> y    Move to bottom of page
+                 [:##u          :!Cleft_arrow]      ; f -> u    Move to beginning of line
+                 [:##i          :!Cright_arrow]     ; f -> i    Move to end of line
+                 [:##o          :!Cup_arrow]        ; f -> o    Move to top of page
+                 [:##h          :left_arrow]        ; f -> h    Move one unit left 
+                 [:##j          :down_arrow]        ; f -> j    Move one unit down
+                 [:##k          :up_arrow]          ; f -> k    Move one unit up
+                 [:##l          :right_arrow]       ; f -> l    Move one unit right
+                 [:##m          :!Oleft_arrow]      ; f -> m    Move one word left
+                 [:##comma      :!Oright_arrow]     ; f -> ,    Move one word right
                 ]
          }
 
@@ -70,10 +70,10 @@
                   [:##u         :!S]                    ; s -> u    Shift+Left
                   [:##i         :!Sright_arrow]         ; s -> i    Shift+Right
                   [:##o         :!Sleft_arrow]          ; s -> u    Shift+Left
-                  [:##h         :!Sleft_arrow]          ; s -> h    Shift+Cmd+Left
-                  [:##j         :!Sdown_arrow]          ; s -> j    Shift+Opt+Left
-                  [:##k         :!Sup_arrow]            ; s -> k    Shift+Opt+Right
-                  [:##l         :!Sright_arrow]         ; s -> l    Shift+Cmd+Right
+                  [:##h         :!Sleft_arrow]          ; s -> h    Select one unit left
+                  [:##j         :!Sdown_arrow]          ; s -> j    Select one unit down
+                  [:##k         :!Sup_arrow]            ; s -> k    Select one unit up
+                  [:##l         :!Sright_arrow]         ; s -> l    Select one unit right
                 ]
          }
 
