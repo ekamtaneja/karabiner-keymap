@@ -1,0 +1,190 @@
+{
+
+ :devices {
+           :sculpt-keyboard [{:product_id 1957 :vendor_id 1118}]
+           }
+
+ :simlayers {
+             :f-mode {:key :f}    ; Movement hjkl(unit move) yuio(home, pgup, pgdn, end) m,(word left, word right)
+             :d-mode {:key :d}    ; Deletion ui(unit deletion) jk(word deletion) hl(line deletion) 
+             :s-mode {:key :s}    ; Selection hjkl(unit select) yuio(shift + home/pgup/pgdn/end) m,(shift + word-left/word-right)
+             :a-mode {:key :a}    ; Numpad 
+             ;
+             :q-mode {:key :q}    ; ctrl
+             :w-mode {:key :w}    ; option
+             :e-mode {:key :e}    ; shift
+             :r-mode {:key :r}    ; command
+             ;
+;;           :g-mode {:key :g}    ; Mouse scroll, desktop left-right, zoom in-out, screenshot (not implemented)
+             ;
+;;           :v-mode {:key :v}    ; Number pad with + - BS ENTER as well
+;;           :c-mode {:key :c}    ; Slashes and lines  ^ | \ _ @
+;;           :x-mode {:key :x}    ; Some multi-character shortcuts like <= (not implemented)
+             }
+
+ :main [
+
+;;      {:des "Swap Win and Alt on Sculpt keyboard"
+;;       :rules [:sculpt-keyboard
+;;               [:left_option :left_command]
+;;               [:left_command :left_option]
+;;               [:right_option :right_command]
+;;               [:application :right_option]
+;;               ]
+;;       }
+
+;;      {:des "CAPSLOCK is CTRL if pressed in combination, otherwise ESC"
+;;       :rules  [
+;;          [:##caps_lock        :left_control     nil         {:alone :escape}]
+;;        ]}
+
+        {:des "f-mode for navigation"
+         :rules [:f-mode
+                 [:##y          :!Cleft_arrow]      ; f -> y    Cmd+Left
+                 [:##u          :page_down]         ; f -> i    Page Down
+                 [:##i          :page_up]           ; f -> u    Page Up
+                 [:##o          :!Cright_arrow]     ; f -> o    Cmd+Right
+                 [:##h          :left_arrow]        ; f -> h    Left 
+                 [:##j          :down_arrow]        ; f -> j    Down
+                 [:##k          :up_arrow]          ; f -> k    Up
+                 [:##l          :right_arrow]       ; f -> l    Right
+                 [:##m          :!Oleft_arrow]      ; f -> m    Opt+Left
+                 [:##comma      :!Oright_arrow]     ; f -> ,    Opt+Right
+                ]
+         }
+
+        {:des "d-mode for deletion"
+         :rules [:d-mode
+                  [:##u         :delete_or_backspace]   ; d -> u   Delete unit backwards
+                  [:##i         :delete_forward]        ; d -> i   Delete unit backwards
+                  [:##j         :!Odelete_or_backspace] ; d -> j   Delete word backwards
+                  [:##k         :!Odelete_forward]      ; d -> k   Delete word forwards
+                  [:##m         :!Cdelete_or_backspace] ; d -> m   Delete to beginning of line
+                  [:##comma     :!Tk]                   ; d -> ,   Delete to end of line
+                ]
+         }
+
+        {:des "s-mode for selection"
+         :rules [:s-mode
+                  [:##y         :!SCleft_arrow]         ; s -> u    Shift+Left
+                  [:##u         :!S]                    ; s -> u    Shift+Left
+                  [:##i         :!Sright_arrow]         ; s -> i    Shift+Right
+                  [:##o         :!Sleft_arrow]          ; s -> u    Shift+Left
+                  [:##h         :!Sleft_arrow]          ; s -> h    Shift+Cmd+Left
+                  [:##j         :!Sdown_arrow]          ; s -> j    Shift+Opt+Left
+                  [:##k         :!Sup_arrow]            ; s -> k    Shift+Opt+Right
+                  [:##l         :!Sright_arrow]         ; s -> l    Shift+Cmd+Right
+                ]
+         }
+
+        {:des "a-mode for numpad"
+         :rules [:a-mode
+                 [:o :9]
+                 [:i :8]
+                 [:u :7]
+                 [:l :6]
+                 [:k :5]
+                 [:j :4]
+                 [:period :3]
+                 [:comma :2]
+                 [:m :1]
+                 [:spacebar :0]
+                 [:semicolon :return_or_enter]
+                 [:h :period]
+                ]
+         }
+
+        {:des "r-mode for deleting characters with ui, words with jk and lines with hl"
+         :rules [:r-mode
+                  [:##u :delete_or_backspace]   ; r -> j   Delete word backwards
+                  [:##i :delete_forward]        ; r -> j   Delete word backwards
+                  [:##j :!Odelete_or_backspace] ; r -> j   Delete word backwards
+                  [:##k :!Odelete_forward]      ; r -> k   Delete word forwards
+                  [:##h :!Cdelete_or_backspace] ; r -> h   Delete to beginning of line
+                  [:##l :!Cdelete_forward]      ; r -> l   Delete to end of line
+                ]
+         }
+
+        {:des "e-mode allows for easy back and forth one character, word or line"
+         :rules [:e-mode
+                  [:##u         :left_arrow]          ; e -> u    Left
+                  [:##i         :right_arrow]         ; e -> i    Right
+                  [:##j         :!Oleft_arrow]        ; e -> j    Opt+Left
+                  [:##k         :!Oright_arrow]       ; e -> k    Opt+Right
+                  [:n           :return_or_enter]     ; e -> n    Enter
+                  [:m           :return_or_enter]     ; e -> m    Enter
+                ]
+         }
+
+        {:des "w-mode = e-mode + SHIFT (i.e. selection, not just movement)"
+         :rules [:w-mode
+                  [:##u         :!Sleft_arrow]         ; e -> u    Shift+Left
+                  [:##i         :!Sright_arrow]        ; e -> i    Shift+Right
+                  [:##j         :!SOleft_arrow]        ; e -> j    Shift+Opt+Left
+                  [:##k         :!SOright_arrow]       ; e -> k    Shift+Opt+Right
+                  [:##h         :!SCleft_arrow]        ; e -> h    Shift+Cmd+Left
+                  [:##l         :!SCright_arrow]       ; e -> l    Shift+Cmd+Right
+                ]
+         }
+
+        {:des "q-mode for general shortcuts like browser tab navigation"
+         :rules [:q-mode
+                  [:##j :!CSopen_bracket]  ; q -> j    tab to the left:  Cmd-{
+                  [:##k :!CSclose_bracket] ; q -> k    tab to the right: Cmd-}
+                  [:##l :!TCf           ]  ; q -> l    toggle full screen: ^⌘F
+                  [:##u :!Cclose_bracket]  ; q -> u    browser back:     Cmd-[
+                  [:##i :!Cclose_bracket]  ; q -> i    browser forward:  Cmd-]
+                  [:##o :f2             ]  ; q -> o    F2 (useful in Excel)
+                  [:##p :f4             ]  ; q -> p    F4 (useful in Excel)
+                ]
+         }
+
+        {:des "v-mode for number pad"
+         :rules [:v-mode
+                 [:u :7]
+                 [:i :8]
+                 [:o :9]
+                 [:j :4]
+                 [:k :5]
+                 [:l :6]
+                 [:m :1]
+                 [:comma :2]
+                 [:period :3]
+                 [:p :!Sequal_sign]
+                 [:semicolon :hyphen]
+                 [:slash :return_or_enter]
+                 [:y :delete_or_backspace]
+                 [:h :period]
+                 [:n :0]
+                ]
+        }
+
+        #_{:des "x-mode for some programming pairs like <= (not yet implemented)"
+         :rules [:x-mode
+                ]
+        }
+
+        #_{:des "g-mode for mouse scroll, desktop left-right, zoom in-out, screenshot"
+         :rules [:g-mode
+                ]
+        }
+
+        {:des "Forward slash is an easier right-shift (if combined)"
+         :rules  [
+            [:slash        :left_shift     nil         {:alone :slash}]
+          ]}
+
+        ;; Using keys for CTRL etc (home-row-mods) isn't practical with plain Karabiner.
+        ;; Some changes to timeout settings would be required, and the documentation is 
+        ;; not clear enough.
+        #_{:des "Convenient CTRL (T,Y) and COMMAND (G,H)"
+         :rules  [
+            [:##t        :left_control     nil         {:alone :t}]
+            [:##y        :left_control     nil         {:alone :y}]
+            [:##g        :left_command     nil         {:alone :g}]
+            [:##h        :left_command     nil         {:alone :h}]
+          ]}
+
+ ]
+}
+
