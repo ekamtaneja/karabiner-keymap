@@ -14,12 +14,6 @@
              :w-mode {:key :w}    ; option
              :e-mode {:key :e}    ; shift
              :r-mode {:key :r}    ; command
-             ;
-;;           :g-mode {:key :g}    ; Mouse scroll, desktop left-right, zoom in-out, screenshot (not implemented)
-             ;
-;;           :v-mode {:key :v}    ; Number pad with + - BS ENTER as well
-;;           :c-mode {:key :c}    ; Slashes and lines  ^ | \ _ @
-;;           :x-mode {:key :x}    ; Some multi-character shortcuts like <= (not implemented)
              }
 
  :main [
@@ -40,49 +34,51 @@
 
         {:des "f-mode for navigation"
          :rules [:f-mode
-                 [:##y          :!Cdown_arrow]      ; f -> y    Move to bottom of page
-                 [:##u          :!Cleft_arrow]      ; f -> u    Move to beginning of line
-                 [:##i          :!Cright_arrow]     ; f -> i    Move to end of line
-                 [:##o          :!Cup_arrow]        ; f -> o    Move to top of page
-                 [:##h          :left_arrow]        ; f -> h    Move one unit left 
-                 [:##j          :down_arrow]        ; f -> j    Move one unit down
-                 [:##k          :up_arrow]          ; f -> k    Move one unit up
-                 [:##l          :right_arrow]       ; f -> l    Move one unit right
-                 [:##m          :!Oleft_arrow]      ; f -> m    Move one word left
-                 [:##comma      :!Oright_arrow]     ; f -> ,    Move one word right
+                 [:##y          :!Cup_arrow]            ; f -> y    Move to top of page
+                 [:##u          :!Cleft_arrow]          ; f -> u    Move to beginning of line
+                 [:##i          :!Cright_arrow]         ; f -> i    Move to end of line
+                 [:##o          :!Cdown_arrow]          ; f -> o    Move to bottom of page
+                 [:##h          :left_arrow]            ; f -> h    Move one unit left 
+                 [:##j          :down_arrow]            ; f -> j    Move one unit down
+                 [:##k          :up_arrow]              ; f -> k    Move one unit up
+                 [:##l          :right_arrow]           ; f -> l    Move one unit right
+                 [:##m          :!Oleft_arrow]          ; f -> m    Move one word left
+                 [:##comma      :!Oright_arrow]         ; f -> ,    Move one word right
                 ]
          }
 
         {:des "d-mode for deletion"
          :rules [:d-mode
-                  [:##u         :delete_or_backspace]   ; d -> u   Delete unit backwards
-                  [:##i         :delete_forward]        ; d -> i   Delete unit backwards
-                  [:##j         :!Odelete_or_backspace] ; d -> j   Delete word backwards
-                  [:##k         :!Odelete_forward]      ; d -> k   Delete word forwards
-                  [:##m         :!Cdelete_or_backspace] ; d -> m   Delete to beginning of line
-                  [:##comma     :!Tk]                   ; d -> ,   Delete to end of line
+                  [:##u         :!Cdelete_or_backspace] ; d -> u   Delete to beginning of line
+                  [:##i         :!Tk]                   ; d -> i   Delete to end of line
+                  [:##j         :!Odelete_or_backspace] ; d -> j   Delete one word backwards
+                  [:##k         :!Odelete_forward]      ; d -> k   Delete one word forwards
+                  [:##m         :delete_or_backspace]   ; d -> m   Delete unit backwards
+                  [:##comma     :delete_forward]        ; d -> ,   Delete unit backwards
                 ]
          }
 
         {:des "s-mode for selection"
          :rules [:s-mode
-                  [:##y         :!SCleft_arrow]         ; s -> u    Shift+Left
-                  [:##u         :!S]                    ; s -> u    Shift+Left
-                  [:##i         :!Sright_arrow]         ; s -> i    Shift+Right
-                  [:##o         :!Sleft_arrow]          ; s -> u    Shift+Left
-                  [:##h         :!Sleft_arrow]          ; s -> h    Select one unit left
-                  [:##j         :!Sdown_arrow]          ; s -> j    Select one unit down
-                  [:##k         :!Sup_arrow]            ; s -> k    Select one unit up
-                  [:##l         :!Sright_arrow]         ; s -> l    Select one unit right
+                  [:##y         :!SCup_arrow]       ; s -> y    Select to beginning of page
+                  [:##y         :!SCleft_arrow]     ; s -> y    Select to beginning of line
+                  [:##o         :!SCright_arrow]    ; s -> o    Select to end of line
+                  [:##o         :!SCdown_arrow]     ; s -> o    Select to end of page
+                  [:##h         :!Sleft_arrow]      ; s -> h    Select one unit left
+                  [:##j         :!Sdown_arrow]      ; s -> j    Select one unit down
+                  [:##k         :!Sup_arrow]        ; s -> k    Select one unit up
+                  [:##l         :!Sright_arrow]     ; s -> l    Select one unit right
+                  [:##m         :!SOleft_arrow]     ; s -> m    Select one word backwards
+                  [:##comma     :!SOright_arrow]    ; s -> ,    Select one word forwards
                 ]
          }
 
         {:des "a-mode for numpad"
          :rules [:a-mode
-                 [:o :9]
-                 [:i :8]
-                 [:u :7]
-                 [:l :6]
+                 [:o :9]          ;   7 8 9 
+                 [:i :8]          ; . 4 5 6 ↵
+                 [:u :7]          ;   1 2 3 
+                 [:l :6]          ; 0
                  [:k :5]
                  [:j :4]
                  [:period :3]
@@ -94,96 +90,16 @@
                 ]
          }
 
-        {:des "r-mode for deleting characters with ui, words with jk and lines with hl"
-         :rules [:r-mode
-                  [:##u :delete_or_backspace]   ; r -> j   Delete word backwards
-                  [:##i :delete_forward]        ; r -> j   Delete word backwards
-                  [:##j :!Odelete_or_backspace] ; r -> j   Delete word backwards
-                  [:##k :!Odelete_forward]      ; r -> k   Delete word forwards
-                  [:##h :!Cdelete_or_backspace] ; r -> h   Delete to beginning of line
-                  [:##l :!Cdelete_forward]      ; r -> l   Delete to end of line
-                ]
-         }
-
-        {:des "e-mode allows for easy back and forth one character, word or line"
-         :rules [:e-mode
-                  [:##u         :left_arrow]          ; e -> u    Left
-                  [:##i         :right_arrow]         ; e -> i    Right
-                  [:##j         :!Oleft_arrow]        ; e -> j    Opt+Left
-                  [:##k         :!Oright_arrow]       ; e -> k    Opt+Right
-                  [:n           :return_or_enter]     ; e -> n    Enter
-                  [:m           :return_or_enter]     ; e -> m    Enter
-                ]
-         }
-
-        {:des "w-mode = e-mode + SHIFT (i.e. selection, not just movement)"
-         :rules [:w-mode
-                  [:##u         :!Sleft_arrow]         ; e -> u    Shift+Left
-                  [:##i         :!Sright_arrow]        ; e -> i    Shift+Right
-                  [:##j         :!SOleft_arrow]        ; e -> j    Shift+Opt+Left
-                  [:##k         :!SOright_arrow]       ; e -> k    Shift+Opt+Right
-                  [:##h         :!SCleft_arrow]        ; e -> h    Shift+Cmd+Left
-                  [:##l         :!SCright_arrow]       ; e -> l    Shift+Cmd+Right
-                ]
-         }
-
-        {:des "q-mode for general shortcuts like browser tab navigation"
-         :rules [:q-mode
-                  [:##j :!CSopen_bracket]  ; q -> j    tab to the left:  Cmd-{
-                  [:##k :!CSclose_bracket] ; q -> k    tab to the right: Cmd-}
-                  [:##l :!TCf           ]  ; q -> l    toggle full screen: ^⌘F
-                  [:##u :!Cclose_bracket]  ; q -> u    browser back:     Cmd-[
-                  [:##i :!Cclose_bracket]  ; q -> i    browser forward:  Cmd-]
-                  [:##o :f2             ]  ; q -> o    F2 (useful in Excel)
-                  [:##p :f4             ]  ; q -> p    F4 (useful in Excel)
-                ]
-         }
-
-        {:des "v-mode for number pad"
-         :rules [:v-mode
-                 [:u :7]
-                 [:i :8]
-                 [:o :9]
-                 [:j :4]
-                 [:k :5]
-                 [:l :6]
-                 [:m :1]
-                 [:comma :2]
-                 [:period :3]
-                 [:p :!Sequal_sign]
-                 [:semicolon :hyphen]
-                 [:slash :return_or_enter]
-                 [:y :delete_or_backspace]
-                 [:h :period]
-                 [:n :0]
-                ]
-        }
-
-        #_{:des "x-mode for some programming pairs like <= (not yet implemented)"
-         :rules [:x-mode
-                ]
-        }
-
-        #_{:des "g-mode for mouse scroll, desktop left-right, zoom in-out, screenshot"
-         :rules [:g-mode
-                ]
-        }
-
-        {:des "Forward slash is an easier right-shift (if combined)"
-         :rules  [
-            [:slash        :left_shift     nil         {:alone :slash}]
-          ]}
-
         ;; Using keys for CTRL etc (home-row-mods) isn't practical with plain Karabiner.
         ;; Some changes to timeout settings would be required, and the documentation is 
         ;; not clear enough.
-        #_{:des "Convenient CTRL (T,Y) and COMMAND (G,H)"
-         :rules  [
-            [:##t        :left_control     nil         {:alone :t}]
-            [:##y        :left_control     nil         {:alone :y}]
-            [:##g        :left_command     nil         {:alone :g}]
-            [:##h        :left_command     nil         {:alone :h}]
-          ]}
+;;        #_{:des "Convenient CTRL (T,Y) and COMMAND (G,H)"
+;;         :rules  [
+;;            [:##t        :left_control     nil         {:alone :t}]
+;;            [:##y        :left_control     nil         {:alone :y}]
+;;            [:##g        :left_command     nil         {:alone :g}]
+;;            [:##h        :left_command     nil         {:alone :h}]
+;;          ]}
 
  ]
 }
