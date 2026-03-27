@@ -10,10 +10,6 @@
              :s-mode {:key :s}    ; Selection hjkl(unit select) yuio(shift + home/pgup/pgdn/end) m,(shift + word-left/word-right)
              :a-mode {:key :a}    ; Numpad 
              ;
-             :q-mode {:key :q}    ; ctrl
-             :w-mode {:key :w}    ; option
-             :e-mode {:key :e}    ; shift
-             :r-mode {:key :r}    ; command
              }
 
  :main [
@@ -90,16 +86,13 @@
                 ]
          }
 
-        ;; Using keys for CTRL etc (home-row-mods) isn't practical with plain Karabiner.
-        ;; Some changes to timeout settings would be required, and the documentation is 
-        ;; not clear enough.
-;;        #_{:des "Convenient CTRL (T,Y) and COMMAND (G,H)"
-;;         :rules  [
-;;            [:##t        :left_control     nil         {:alone :t}]
-;;            [:##y        :left_control     nil         {:alone :y}]
-;;            [:##g        :left_command     nil         {:alone :g}]
-;;            [:##h        :left_command     nil         {:alone :h}]
-;;          ]}
+        {:des "Dual-role modifiers: QWER"
+         :rules [
+            [:##q        :left_control     nil         {:alone :q :params {:alone 200}}]
+            [:##w        :left_option      nil         {:alone :w :params {:alone 200}}]
+            [:##e        :left_shift       nil         {:alone :e :params {:alone 200}}]
+            [:##r        :left_command     nil         {:alone :r :params {:alone 200}}]
+          ]}
 
  ]
 }
