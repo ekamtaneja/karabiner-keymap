@@ -57,8 +57,8 @@
         {:des "s-mode for selection"
          :rules [:s-mode
                   [:##y         :!SCup_arrow]       ; s -> y    Select to beginning of page
-                  [:##y         :!SCleft_arrow]     ; s -> y    Select to beginning of line
-                  [:##o         :!SCright_arrow]    ; s -> o    Select to end of line
+                  [:##u         :!SCleft_arrow]     ; s -> u    Select to beginning of line
+                  [:##i         :!SCright_arrow]    ; s -> i    Select to end of line
                   [:##o         :!SCdown_arrow]     ; s -> o    Select to end of page
                   [:##h         :!Sleft_arrow]      ; s -> h    Select one unit left
                   [:##j         :!Sdown_arrow]      ; s -> j    Select one unit down
