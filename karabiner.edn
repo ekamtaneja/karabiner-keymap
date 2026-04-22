@@ -100,8 +100,8 @@
             [:f2  :display_brightness_increment]   ; Brightness Up
             [:f3  :mission_control]                ; Mission Control
             [:f4  :launchpad]                      ; Launchpad
-            [:f5  :illumination_decrement]         ; Keyboard Brightness Down
-            [:f6  :illumination_increment]         ; Keyboard Brightness Up
+            [:f5  :dictation]                      ; Dictation (microphone)
+            [:f6  :do_not_disturb]                 ; Do Not Disturb (moon)
             [:f7  :rewind]                         ; Previous Track
             [:f8  :play_or_pause]                  ; Play / Pause
             [:f9  :fast_forward]                   ; Next Track
