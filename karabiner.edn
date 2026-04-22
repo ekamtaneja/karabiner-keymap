@@ -94,6 +94,22 @@
             [:##r        :left_command     nil         {:alone :r :params {:alone 200}}]
           ]}
 
+        {:des "F-keys: MacBook top row media and system controls"
+         :rules [
+            [:f1  :display_brightness_decrement]   ; Brightness Down
+            [:f2  :display_brightness_increment]   ; Brightness Up
+            [:f3  :mission_control]                ; Mission Control
+            [:f4  :launchpad]                      ; Launchpad
+            [:f5  :illumination_decrement]         ; Keyboard Brightness Down
+            [:f6  :illumination_increment]         ; Keyboard Brightness Up
+            [:f7  :rewind]                         ; Previous Track
+            [:f8  :play_or_pause]                  ; Play / Pause
+            [:f9  :fast_forward]                   ; Next Track
+            [:f10 :mute]                           ; Mute
+            [:f11 :volume_decrement]               ; Volume Down
+            [:f12 :volume_increment]               ; Volume Up
+          ]}
+
  ]
 }
 
