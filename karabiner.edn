@@ -6,7 +6,7 @@
 
  :simlayers {
              :f-mode {:key :f}    ; Movement hjkl(unit move) yuio(home, pgup, pgdn, end) m,(word left, word right)
-             :d-mode {:key :d}    ; Deletion ui(unit deletion) jk(word deletion) hl(line deletion) 
+             :d-mode {:key :d}    ; Deletion ui(line) m,(word) hl(char)
              :s-mode {:key :s}    ; Selection hjkl(unit select) yuio(shift + home/pgup/pgdn/end) m,(shift + word-left/word-right)
              :a-mode {:key :a}    ; Numpad 
              ;
@@ -47,10 +47,10 @@
          :rules [:d-mode
                   [:##u         :!Cdelete_or_backspace] ; d -> u   Delete to beginning of line
                   [:##i         :!Tk]                   ; d -> i   Delete to end of line
-                  [:##j         :!Odelete_or_backspace] ; d -> j   Delete one word backwards
-                  [:##k         :!Odelete_forward]      ; d -> k   Delete one word forwards
-                  [:##m         :delete_or_backspace]   ; d -> m   Delete unit backwards
-                  [:##comma     :delete_forward]        ; d -> ,   Delete unit backwards
+                  [:##m         :!Odelete_or_backspace] ; d -> m   Delete one word backwards
+                  [:##comma     :!Odelete_forward]      ; d -> ,   Delete one word forwards
+                  [:##h         :delete_or_backspace]   ; d -> h   Delete one char backwards
+                  [:##l         :delete_forward]        ; d -> l   Delete one char forwards
                 ]
          }
 
@@ -71,27 +71,31 @@
 
         {:des "a-mode for numpad"
          :rules [:a-mode
-                 [:o :9]          ;   7 8 9 
-                 [:i :8]          ; . 4 5 6 ↵
-                 [:u :7]          ;   1 2 3 
-                 [:l :6]          ; 0
-                 [:k :5]
-                 [:j :4]
-                 [:period :3]
-                 [:comma :2]
-                 [:m :1]
-                 [:spacebar :0]
+                 [:y         :slash]              ;        /  *
+                 [:p         :!S8]                ;   7 8 9
+                 [:u         :7]                  ; . 4 5 6 ↵
+                 [:i         :8]                  ;   1 2 3
+                 [:o         :9]                  ; +  -  0
+                 [:j         :4]
+                 [:k         :5]
+                 [:l         :6]
+                 [:m         :1]
+                 [:comma     :2]
+                 [:period    :3]
+                 [:spacebar  :0]
+                 [:h         :period]
                  [:semicolon :return_or_enter]
-                 [:h :period]
+                 [:n         :hyphen]
+                 [:equal_sign :!Sequal_sign]
                 ]
          }
 
         {:des "Dual-role modifiers: QWER"
          :rules [
-            [:##q        :left_control     nil         {:alone :q :params {:alone 200}}]
-            [:##w        :left_option      nil         {:alone :w :params {:alone 200}}]
-            [:##e        :left_shift       nil         {:alone :e :params {:alone 200}}]
-            [:##r        :left_command     nil         {:alone :r :params {:alone 200}}]
+            [:##q        :left_control     nil         {:alone :q :params {:alone 333}}]
+            [:##w        :left_option      nil         {:alone :w :params {:alone 333}}]
+            [:##e        :left_shift       nil         {:alone :e :params {:alone 333}}]
+            [:##r        :left_command     nil         {:alone :r :params {:alone 333}}]
           ]}
 
         {:des "F-keys: MacBook top row media and system controls"
