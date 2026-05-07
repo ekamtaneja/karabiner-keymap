@@ -1,32 +1,20 @@
 {
 
  :devices {
-           :sculpt-keyboard [{:product_id 1957 :vendor_id 1118}]
+           :sculpt-keyboard  [{:product_id 1957 :vendor_id 1118}]
+           :apple-keyboard   [{:product_id 833  :vendor_id 1452}]  ; MacBook / Magic Keyboard
+           :windows-keyboard [{:product_id 4646 :vendor_id 19266}] ; Windows-layout keyboard
            }
 
  :simlayers {
-             :f-mode {:key :f}    ; Movement hjkl(unit move) yuio(home, pgup, pgdn, end) m,(word left, word right)
-             :d-mode {:key :d}    ; Deletion ui(line deletion) jk(word deletion) m,(unit deletion)
-             :s-mode {:key :s}    ; Selection hjkl(unit select) yuio(shift + home/pgup/pgdn/end) m,(shift + word-left/word-right)
-             :a-mode {:key :a}    ; Numpad 
-             ;
+             :f-mode    {:key :f}                         ; Movement hjkl(unit) yuio(home/pgup/pgdn/end) m,(word)
+             :d-mode    {:key :d}                         ; Deletion ui(line) jk(word) m,(unit)
+             :s-mode    {:key :s}                         ; Selection hjkl(unit) yuio(shift+home/pgup/pgdn/end) m,(word)
+             :a-mode    {:key :a}                         ; Numpad
+             :caps-mode {:key :caps_lock :alone :escape}  ; Apple keyboard: nav/mod layer (tap = escape)
              }
 
  :main [
-
-;;      {:des "Swap Win and Alt on Sculpt keyboard"
-;;       :rules [:sculpt-keyboard
-;;               [:left_option :left_command]
-;;               [:left_command :left_option]
-;;               [:right_option :right_command]
-;;               [:application :right_option]
-;;               ]
-;;       }
-
-;;      {:des "CAPSLOCK is CTRL if pressed in combination, otherwise ESC"
-;;       :rules  [
-;;          [:##caps_lock        :left_control     nil         {:alone :escape}]
-;;        ]}
 
         {:des "f-mode for navigation"
          :rules [:f-mode
@@ -34,14 +22,13 @@
                  [:##u          :!Cleft_arrow]          ; f -> u    Move to beginning of line
                  [:##i          :!Cright_arrow]         ; f -> i    Move to end of line
                  [:##o          :!Cdown_arrow]          ; f -> o    Move to bottom of page
-                 [:##h          :left_arrow]            ; f -> h    Move one unit left 
+                 [:##h          :left_arrow]            ; f -> h    Move one unit left
                  [:##j          :down_arrow]            ; f -> j    Move one unit down
                  [:##k          :up_arrow]              ; f -> k    Move one unit up
                  [:##l          :right_arrow]           ; f -> l    Move one unit right
                  [:##m          :!Oleft_arrow]          ; f -> m    Move one word left
                  [:##comma      :!Oright_arrow]         ; f -> ,    Move one word right
-                ]
-         }
+                ]}
 
         {:des "d-mode for deletion"
          :rules [:d-mode
@@ -51,8 +38,7 @@
                   [:##k         :!Odelete_forward]      ; d -> k   Delete one word forwards
                   [:##m         :delete_or_backspace]   ; d -> m   Delete unit backwards
                   [:##comma     :delete_forward]        ; d -> ,   Delete unit forwards
-                ]
-         }
+                ]}
 
         {:des "s-mode for selection"
          :rules [:s-mode
@@ -66,14 +52,13 @@
                   [:##l         :!Sright_arrow]     ; s -> l    Select one unit right
                   [:##m         :!SOleft_arrow]     ; s -> m    Select one word backwards
                   [:##comma     :!SOright_arrow]    ; s -> ,    Select one word forwards
-                ]
-         }
+                ]}
 
         {:des "a-mode for numpad"
          :rules [:a-mode
-                 [:o :9]          ;   7 8 9 
+                 [:o :9]          ;   7 8 9
                  [:i :8]          ; . 4 5 6 ↵
-                 [:u :7]          ;   1 2 3 
+                 [:u :7]          ;   1 2 3
                  [:l :6]          ; 0
                  [:k :5]
                  [:j :4]
@@ -83,8 +68,7 @@
                  [:spacebar :0]
                  [:semicolon :return_or_enter]
                  [:h :period]
-                ]
-         }
+                ]}
 
         {:des "Dual-role modifiers: QWER"
          :rules [
@@ -94,6 +78,43 @@
             [:##r        :left_command     nil         {:alone :r :params {:alone 200}}]
           ]}
 
+        {:des "caps-mode: navigation layer (Apple keyboard)"
+         :rules [:caps-mode
+                 [:##y         :home         :apple-keyboard]
+                 [:##u         :page_down    :apple-keyboard]
+                 [:##i         :page_up      :apple-keyboard]
+                 [:##o         :end          :apple-keyboard]
+                 [:##h         :left_arrow   :apple-keyboard]
+                 [:##j         :down_arrow   :apple-keyboard]
+                 [:##k         :up_arrow     :apple-keyboard]
+                 [:##l         :right_arrow  :apple-keyboard]
+                 [:##e         {:pbutton :button4} :apple-keyboard]  ; browser back
+                 [:##r         {:pbutton :button5} :apple-keyboard]  ; browser forward
+                 [:##semicolon :delete_forward      :apple-keyboard]
+                ]}
+
+        {:des "caps-mode: homerow modifiers (Apple keyboard)"
+         :rules [:caps-mode
+                 [:##a         :left_control  :apple-keyboard]
+                 [:##s         :left_option   :apple-keyboard]
+                 [:##d         :left_shift    :apple-keyboard]
+                 [:##f         :left_command  :apple-keyboard]
+                ]}
+
+        {:des "Apple keyboard: physical key remaps"
+         :rules [:apple-keyboard
+                 [:escape              :caps_lock]            ; escape acts as caps_lock (caps-mode trigger)
+                 [:return_or_enter     :delete_or_backspace]
+                 [:delete_or_backspace :return_or_enter]
+                ]}
+
+        {:des "Windows keyboard: swap Ctrl and Cmd"
+         :rules [:windows-keyboard
+                 [:left_command  :left_control]
+                 [:left_control  :left_command]
+                 [:right_command :right_control]
+                 [:right_control :right_command]
+                ]}
+
  ]
 }
-
