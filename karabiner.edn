@@ -6,7 +6,7 @@
 
  :simlayers {
              :f-mode {:key :f}    ; Movement hjkl(unit move) yuio(home, pgup, pgdn, end) m,(word left, word right)
-             :d-mode {:key :d}    ; Deletion ui(unit deletion) jk(word deletion) hl(line deletion) 
+             :d-mode {:key :d}    ; Deletion ui(line deletion) jk(word deletion) m,(unit deletion)
              :s-mode {:key :s}    ; Selection hjkl(unit select) yuio(shift + home/pgup/pgdn/end) m,(shift + word-left/word-right)
              :a-mode {:key :a}    ; Numpad 
              ;
@@ -50,7 +50,7 @@
                   [:##j         :!Odelete_or_backspace] ; d -> j   Delete one word backwards
                   [:##k         :!Odelete_forward]      ; d -> k   Delete one word forwards
                   [:##m         :delete_or_backspace]   ; d -> m   Delete unit backwards
-                  [:##comma     :delete_forward]        ; d -> ,   Delete unit backwards
+                  [:##comma     :delete_forward]        ; d -> ,   Delete unit forwards
                 ]
          }
 
